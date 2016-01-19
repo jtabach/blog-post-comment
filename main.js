@@ -1,5 +1,3 @@
-
-
 var ref = new Firebase('https://blog-post-data.firebaseio.com/');
 var questionsRef = ref.child('questions');
 var $question, $questions, $comment, $comments;
@@ -22,8 +20,6 @@ function addQuestion() {
 questionsRef.on('value', function(snap) {
 	$questions.empty();
 	snap.forEach(function(child) {
-		// console.log(child.val().title);
-		// console.log(child.val().date);
 		var $link = $('<a>').text(' Read More').addClass('readMore');
 		var date = moment(child.val().date).format('LL');
 		var $title = $('<li>').text(child.val().title + ", " + date).attr('uid', child.key());
@@ -34,23 +30,18 @@ questionsRef.on('value', function(snap) {
 
 function readMore() {
 	$('#full').empty();
-
-	for (var key in questionsRef) {
-		// console.log(key);
-	}
 	var $this = $(this);
 	var uid = $this.parent().attr('uid');
-	
-	var $descr;
+	var descr;
+	var title;
 	var text = $this.parent().text()
 	questionsRef.once('value', function(snap){
-		snap.forEach(function(yy) {
-			$descr =  yy.val().description;
-		});
+		descr = snap.child(uid).val().description;
+		title = snap.child(uid).val().title;
+
 	});
-	console.log($descr);
-	var $h1 = $('<h1>').text(text);
-	var $p = $('<p>').text($descr);
+	var $h1 = $('<h1>').text(title);
+	var $p = $('<p>').text(descr);
 	var $button = $('<button>').text('comment').addClass('comments').attr('uid', uid);
 	var $input = $('<input>').attr('id', 'commenting');
 	var $div = $('<div>').attr('id', 'divme');
@@ -61,15 +52,10 @@ function readMore() {
 
 function comment() {
 	var answer = {};
-	// var uid = $(this).attr('uid');
-	// console.log($(this).attr('uid'));
-	
 	answer.text = $('#commenting').val();
-
 	answersRef.push(answer);
 	$divme = $('#divme');
 	answersRef.on('value', function(snap) {
-		console.log("asda");
 		$divme.empty();
 		snap.forEach(function(com) {
 			var $p = $('<p>').text(com.val().text);
@@ -77,15 +63,3 @@ function comment() {
 		});
 	});
 }
-
-
-
-
-
-
-
-
-
-
-
-
