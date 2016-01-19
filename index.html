@@ -7,19 +7,21 @@
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-
+	<br>
 	<div class="container">
+		<h1 class="text-center">Firebase Q & A</h1>
 		<form class="form-horizontal">
 		  <div class="form-group col-sm-12">
-		    <label class="col-sm-1 control-label">Question</label>
-		    <div class="col-sm-11">
-		      <input type="text" class="form-control" id="title" value="Jon Doe" required>
+		  	<br>
+		    <label class="col-sm-2 control-label">Question</label>
+		    <div class="col-sm-10">
+		      <input type="text" class="form-control" id="title" placeHolder="Ask a Question" required>
 		    </div>
 		  </div>
 		  <div class="form-group col-sm-12">
-		    <label class="col-sm-1 control-label">Desciption</label>
-		    <div class="col-sm-11">
-		      <input type="text" class="form-control" id="description" value="here" required>
+		    <label class="col-sm-2 control-label">Desciption</label>
+		    <div class="col-sm-10">
+		      <input type="text" class="form-control" id="description" placeHolder="More Info" required>
 		    </div>
 		  </div>
 		  <div class="form-group">
@@ -29,9 +31,10 @@
 		  </div>
 		</form>
 	</div>
-	<div class="container">
+	<div class="container" id="blog">
 		<div class="row">
 			<div class="col-sm-4">
+				<h1>Questions: </h1>
 				<ul id="questions"></ul>
 			</div>
 			<div class="col-sm-8">
