@@ -3,12 +3,12 @@
 var ref = new Firebase('https://blog-post-data.firebaseio.com/');
 var questionsRef = ref.child('questions');
 var $question, $questions, $comment, $comments;
-
+var answersRef;
 $(document).ready(function() {
 	$questions = $('#questions');
 	$('#addQuestion').click(addQuestion);
 	$('body').on('click', '.readMore', readMore);
-	$('body').on('click', '.comment', comment);
+	$('body').on('click', '.comments', comment);
 });
 
 function addQuestion() {
@@ -51,29 +51,30 @@ function readMore() {
 	console.log($descr);
 	var $h1 = $('<h1>').text(text);
 	var $p = $('<p>').text($descr);
-	var $button = $('<button>').text('comment').addClass('comment').attr('uid', uid);
+	var $button = $('<button>').text('comment').addClass('comments').attr('uid', uid);
 	var $input = $('<input>').attr('id', 'commenting');
-	$('#full').append($h1).append($p).append($input).append($button);
+	var $div = $('<div>').attr('id', 'divme');
+	$('#full').append($h1).append($p).append($input).append($button).append($div);
+	answersRef = questionsRef.child(uid).child('comments');
+	comment();
 }
 
 function comment() {
 	var answer = {};
-	var uid = $(this).attr('uid');
+	// var uid = $(this).attr('uid');
 	// console.log($(this).attr('uid'));
-	var answersRef = questionsRef.child(uid).child('comments');
+	
 	answer.text = $('#commenting').val();
 
 	answersRef.push(answer);
-	$comments = $('.comments');
+	$divme = $('#divme');
 	answersRef.on('value', function(snap) {
-		// snap.forEach(function(com) {
-			$comments.empty();
-			var $p = $('<p>').text(answer.text);
-			$comments.append($p);
-		// });
-		
-
-
+		console.log("asda");
+		$divme.empty();
+		snap.forEach(function(com) {
+			var $p = $('<p>').text(com.val().text);
+			$divme.append($p);
+		});
 	});
 }
 
