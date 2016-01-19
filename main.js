@@ -10,11 +10,13 @@ $(document).ready(function() {
 });
 
 function addQuestion() {
-	var question = {};
-	question.title = $('#title').val();
-	question.description = $('#description').val();
-	question.date = Date.now();
-	questionsRef.push(question);
+	if ($('#title').val() !== "" && $('#description').val() !== "") {
+		var question = {};
+		question.title = $('#title').val();
+		question.description = $('#description').val();
+		question.date = Date.now();
+		questionsRef.push(question);
+	}
 	$('form').trigger('reset');
 }
 
@@ -41,11 +43,11 @@ function readMore() {
 		title = snap.child(uid).val().title;
 	});
 	var $h1 = $('<h1>').text(title);
-	var $p = $('<p>').text("Description: " + descr);
+	var $h4 = $('<h4>').text("Description: " + descr);
 	var $button = $('<button>').text('comment').addClass('comments').attr('uid', uid);
 	var $input = $('<input>').attr('id', 'commenting');
 	var $div = $('<div>').attr('id', 'divme');
-	$('#full').append($h1).append($p).append($input).append($button).append($div);
+	$('#full').append($h1).append($h4).append($input).append($button).append($div);
 	answersRef = questionsRef.child(uid).child('comments');
 	comment();
 }

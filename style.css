@@ -6,7 +6,7 @@ li {
 
 body {
 	background: url('photography.png') repeat;
-	/*background-size: c==;*/
+	font-family: 'Raleway', sans-serif;
 }
 
 .container {
@@ -17,6 +17,7 @@ body {
 #blog {
 	box-shadow: 00 1em 1em #ccc;
 	background: #ccdeff;
+	padding-bottom: 20px;
 }
 
 a:hover {
@@ -31,8 +32,8 @@ a:hover {
 }
 
 #full {
-	border-left: 3px solid #e5eeff;
 	padding-left: 20px;
+	border-left: 3px solid #e5eeff;
 }
 
 input {
